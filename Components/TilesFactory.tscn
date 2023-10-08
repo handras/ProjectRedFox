@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://g6jyaqgntryo"]
+
+[ext_resource type="Script" path="res://Components/TilesFactory.gd" id="1_nkbva"]
+[ext_resource type="ArrayMesh" uid="uid://mgwhelvxf16j" path="res://models/factory.obj" id="2_6rjcd"]
+[ext_resource type="ArrayMesh" uid="uid://4g1bsjvyrhtu" path="res://models/tile.obj" id="3_mdqpe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmyiu"]
+albedo_color = Color(0.776471, 0.788235, 0.686275, 1)
+roughness = 0.87
+
+[node name="TilesFactory" type="Node3D"]
+script = ExtResource("1_nkbva")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_6rjcd")
+surface_material_override/0 = SubResource("StandardMaterial3D_jmyiu")
+
+[node name="Tile4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.123533, 0.00792825, 0.0875536)
+visible = false
+mesh = ExtResource("3_mdqpe")
+skeleton = NodePath("../Tile3")
+
+[node name="Tile3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.112387, 0.00792828, 0.0932789)
+visible = false
+mesh = ExtResource("3_mdqpe")
+skeleton = NodePath("../Tile1")
+
+[node name="Tile2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0984315, 0.00792825, -0.133381)
+visible = false
+mesh = ExtResource("3_mdqpe")
+skeleton = NodePath("../Tile1")
+
+[node name="Tile1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.123971, 0.00792828, -0.116076)
+visible = false
+mesh = ExtResource("3_mdqpe")
