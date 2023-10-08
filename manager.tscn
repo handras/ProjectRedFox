@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsgm3b0sl7inb"]
+
+[ext_resource type="Script" path="res://Manager.gd" id="1_ir35w"]
+[ext_resource type="ArrayMesh" uid="uid://4g1bsjvyrhtu" path="res://models/tile.obj" id="2_efxij"]
+[ext_resource type="Script" path="res://camera_control.gd" id="3_c6w6v"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qj3k3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_q3cd1"]
+sky_material = SubResource("ProceduralSkyMaterial_qj3k3")
+
+[sub_resource type="Environment" id="Environment_bac38"]
+background_mode = 2
+sky = SubResource("Sky_q3cd1")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bac38")
+
+[node name="Manager" type="Node3D" parent="."]
+script = ExtResource("1_ir35w")
+TileMesh = ExtResource("2_efxij")
+TileColors = [Color(0.705882, 0.0352941, 0.160784, 1), Color(0.0196078, 0.133333, 0.0470588, 1), Color(0.917647, 0.698039, 0.0470588, 1), Color(0.0392157, 0.698039, 0.803922, 1)]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.992047, 0.12587, 0, -0.12587, 0.992047, -1.90735e-06, 2.26776, 5.97453)
+cull_mask = 1047553
+script = ExtResource("3_c6w6v")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.0616284, 0.704416, 0, 0.996195, 0.0871557, -0.707107, -0.0616284, 0.704416, 0, 6.74607, 3.38038)
