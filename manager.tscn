@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsgm3b0sl7inb"]
+[gd_scene load_steps=6 format=3 uid="uid://dsgm3b0sl7inb"]
 
 [ext_resource type="Script" path="res://Manager.gd" id="1_ir35w"]
-[ext_resource type="ArrayMesh" uid="uid://4g1bsjvyrhtu" path="res://models/tile.obj" id="2_efxij"]
 [ext_resource type="Script" path="res://camera_control.gd" id="3_c6w6v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qj3k3"]
@@ -24,11 +23,10 @@ environment = SubResource("Environment_bac38")
 
 [node name="Manager" type="Node3D" parent="."]
 script = ExtResource("1_ir35w")
-TileMesh = ExtResource("2_efxij")
 TileColors = [Color(0.705882, 0.0352941, 0.160784, 1), Color(0.0196078, 0.133333, 0.0470588, 1), Color(0.917647, 0.698039, 0.0470588, 1), Color(0.0392157, 0.698039, 0.803922, 1)]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.992047, 0.12587, 0, -0.12587, 0.992047, -1.90735e-06, 2.26776, 5.97453)
+transform = Transform3D(1, 0, 0, 0, 0.483863, 0.875144, 0, -0.875144, 0.483863, -1.90735e-06, 2.26776, 0.642321)
 cull_mask = 1047553
 script = ExtResource("3_c6w6v")
 

@@ -6,8 +6,6 @@ extends Node3D
 
 var tiles: Array;
 
-var number =2
-
 func _ready():
 	pass # Replace with function body.
 
@@ -22,3 +20,4 @@ func PutTilesOnto(new_tiles: Array):
 			tiles.append(tile)
 			tile.reparent(self)
 			tile.position = get_node("Tile"+str(len(tiles))).position
+			tile.rotation = rotation + Vector3(0, randfn(0,  rad_to_deg(1.0)),0)

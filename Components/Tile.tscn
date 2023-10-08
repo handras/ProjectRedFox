@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmmipa67qrggd"]
+
+[ext_resource type="Script" path="res://Components/Tile.gd" id="1_miqj8"]
+[ext_resource type="ArrayMesh" uid="uid://4g1bsjvyrhtu" path="res://models/tile.obj" id="1_seulv"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_miqj8")
+
+[node name="tile" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_seulv")
