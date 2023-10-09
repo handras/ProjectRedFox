@@ -1,18 +1,24 @@
 extends Node3D
 
+var colorClass: TileColorsDef.colors:
+	set(value):
+		colorClass = value
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-var _tile
 var tile:
 	get:
-		if not _tile:
-			_tile = get_node('tile')
-		return _tile
+		if not tile:
+			tile = get_node('tile')
+		return tile
+
+var _manager:
+	get:
+		if not _manager:
+			_manager = get_node('/root/Azuljo/Manager')
+		return _manager
+
+
+func _ready():
+	var _mat = _manager.matList[colorClass]
+	tile.set_surface_override_material(0, _mat)
+	pass

@@ -16,14 +16,14 @@ sky = SubResource("Sky_q3cd1")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Node3D" type="Node3D"]
+[node name="Azuljo" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bac38")
 
 [node name="Manager" type="Node3D" parent="."]
 script = ExtResource("1_ir35w")
-TileColors = [Color(0.705882, 0.0352941, 0.160784, 1), Color(0.0196078, 0.133333, 0.0470588, 1), Color(0.917647, 0.698039, 0.0470588, 1), Color(0.0392157, 0.698039, 0.803922, 1)]
+TileColors = Array[Color]([Color(0.705882, 0.0352941, 0.160784, 1), Color(0.0196078, 0.133333, 0.0470588, 1), Color(0.917647, 0.698039, 0.0470588, 1), Color(0.0392157, 0.698039, 0.803922, 1), Color(0.705882, 0.894118, 0.968627, 1)])
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.483863, 0.875144, 0, -0.875144, 0.483863, -1.90735e-06, 2.26776, 0.642321)
