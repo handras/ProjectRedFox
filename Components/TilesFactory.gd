@@ -6,7 +6,6 @@ extends Node3D
 
 var tiles: Array;
 
-
 func PutTilesOnto(new_tiles: Array):
 	for tile in new_tiles:
 		if len(tiles) < MaxTiles:

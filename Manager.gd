@@ -35,6 +35,20 @@ func _ready():
 		_fac.rotation = Vector3(0, rad_to_deg(rot), 0)
 
 
+# maybe it should be in camera
+func _physics_process(_delta):
+	var space_state = get_world_3d().direct_space_state
+	var cam = $'../Camera3D'
+	var mousepos = get_viewport().get_mouse_position()
+
+	var origin = cam.project_ray_origin(mousepos)
+	var end = origin + cam.project_ray_normal(mousepos) * 500
+	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	print(mousepos, origin, end)
+
+	var result = space_state.intersect_ray(query)
+	print(result)
+
 @warning_ignore("unused_parameter")
 func _process(delta):
 	if Input.is_action_just_pressed("LeftClick"):
