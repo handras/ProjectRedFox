@@ -9,5 +9,8 @@ func AddTiles():
 func tile_pointed_at():
 	pass
 
+func tile_pointed_at_ended():
+	pass
+
 func tile_clicked_at():
 	pass
