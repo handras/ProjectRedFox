@@ -13,7 +13,7 @@ func _ready():
 	for i in range(MaxTiles):
 		var _pos = get_node("Tile"+str(i+1)).position
 		_tile_hold_pos.append(_pos)
-		_tile_select_pos.append(_pos + Vector3(0, 0.2, 0))
+		_tile_select_pos.append(_pos + Vector3(0, 0.12, 0))
 
 func PutTilesOnto(new_tiles: Array):
 	for tile in new_tiles:

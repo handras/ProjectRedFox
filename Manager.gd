@@ -4,22 +4,11 @@ extends Node3D
 
 var tiles_factory = preload("res://Components/TilesFactory.tscn")
 var tile_ = preload("res://Components/Tile.tscn")
+var tile_collector = preload("res://Scripts/TileCollector.gd").new()
 
 var TileCount := 0
 var matList= [];
 var factories = [];
-
-var tile_collector_script = preload("res://Scripts/TileCollector.gd")
-
-var tile_collector = tile_collector_script.new()
-
-signal fill_next_factory
-
-func fillFactory(factory):
-	print('filling factory')
-	var _tiles = tile_collector.get_tiles(factory.MaxTiles)
-	factory.PutTilesOnto(_tiles)
-
 
 func _ready():
 	for col in TileColors:
@@ -30,6 +19,8 @@ func _ready():
 	var no_factories = 5
 	_put_down_factories(no_factories)
 
+func _process(_delta):
+	pass
 
 # maybe it should be in camera
 func _physics_process(_delta):
@@ -52,23 +43,18 @@ func _put_down_factories(no_factories):
 	for i in range(no_factories):
 		var _fac = tiles_factory.instantiate()
 		factories.append(_fac)
-		add_child(_fac)
+		get_parent().add_child.call_deferred(_fac)
 		var alpha = 2*PI*i/no_factories + randf_range(deg_to_rad(-2), deg_to_rad(3));
 		_fac.position = Vector3(1*sin(alpha), 0, -1*cos(alpha))
-		var rot = [0, 90, 180, 270][randi()%4]+randfn(0, 3.2)
-		_fac.rotation = Vector3(0, rad_to_deg(rot), 0)
-	_fill_factories()  # start a coroutine which listens for fill_next_factory
-
+		var rot = [0, 90, 180, 270][randi()%4]+randfn(0, 2.82)
+		_fac.rotation = Vector3(0, deg_to_rad(rot), 0)
+	_fill_factories()
 
 func _fill_factories():
-	await fill_next_factory
 	for fac in self.factories:
-		fillFactory(fac)
-		await fill_next_factory
+		_fill_factory(fac)
 
-
-@warning_ignore("unused_parameter")
-func _process(delta):
-	if Input.is_action_just_pressed("LeftClick"):
-		fill_next_factory.emit()
-
+func _fill_factory(factory):
+	# print('filling factory')
+	var _tiles = tile_collector.get_tiles(factory.MaxTiles)
+	factory.PutTilesOnto.call_deferred(_tiles)
