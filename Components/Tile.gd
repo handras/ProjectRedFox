@@ -4,9 +4,11 @@ var colorClass: TileColorsDef.colors:
 	set(value):
 		colorClass = value
 
+var _move_towards_running:= false
 var target_position: Vector3:
 	set(value):
 		target_position = value
+		_move_towards_running = true
 		_move_towards_target()
 
 var size: Vector3
@@ -59,6 +61,7 @@ func input_to_click(camera: Node, event:InputEvent, pos, normal, shape_idx):
 			clicked_at()
 
 func _move_towards_target():
+	# todo: better do this in local space, since the dragger can move during
 	var start = self.global_position
 	var target = self.target_position
 	var time = 0

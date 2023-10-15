@@ -2,6 +2,7 @@ extends Node3D
 
 var collector_tiles: Array;
 var tile_size: Vector3
+var _no_tiles:=0
 
 signal drag_started(new_place)
 signal drag_ended(new_place)
@@ -15,7 +16,7 @@ func _ready():
 
 func PutTilesOnto(new_tiles: Array):
 	drag_started.emit()
-	var _no_tiles = len(new_tiles)
+	_no_tiles = len(new_tiles)
 	for tile in new_tiles:
 		var _curr_idx = len(collector_tiles)
 		tile.reparent(self)
@@ -47,21 +48,27 @@ func _arrange_tile(total, idx):
 
 func _physics_process(_delta):
 	var space_state = get_world_3d().direct_space_state
-	var cam = $'../Camera3D'
 	var mousepos = get_viewport().get_mouse_position()
+	var cam = $'../Camera3D'
 
 	var origin = cam.project_ray_origin(mousepos)
-	var end = origin + cam.project_ray_normal(mousepos) * 500
-	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	var end = origin + cam.project_ray_normal(mousepos)
+	position = _intersect_with_plane(origin, end)
+
+	if _no_tiles > 0:
+		_project_ray_down(space_state)
+
+func _project_ray_down(space_state):
+	var origin = global_position
+	var end = origin + Vector3(0, -1, 0)
+	var query = PhysicsRayQueryParameters3D.create(origin, end, 2)
 	var result = space_state.intersect_ray(query)
 
 	if result:
-		var _coll  = result['collider']
+		var _coll = result['collider']
+		# print(_coll)
 		if _coll.get_parent().has_method("can_accept_tiles"):
 			_coll.get_parent().can_accept_tiles()
-
-		pass
-	position = _intersect_with_plane(origin, end)
 
 func _intersect_with_plane(origin, end):
 	const plane_norm = Vector3(0, 1, 0)

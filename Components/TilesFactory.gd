@@ -24,14 +24,12 @@ func _ready():
 	_tile_dragger.drag_ended.connect(on_drag_end)
 
 func on_drag_start():
-	_collider.mouse_entered.connect(_can_accept_from_dragger)
-	_collider.mouse_exited.connect(return_to_default)
+	pass
 
 func on_drag_end():
-	_collider.mouse_entered.disconnect(_can_accept_from_dragger)
-	_collider.mouse_exited.disconnect(return_to_default)
+	pass
 
-func _can_accept_from_dragger():
+func can_accept_tiles():
 	var _mat = StandardMaterial3D.new()
 	if len(_tile_ind) < MaxTiles:
 		print('can accept')
@@ -43,7 +41,6 @@ func _can_accept_from_dragger():
 
 func return_to_default():
 	_mesh.set_surface_override_material(0, StandardMaterial3D.new())
-
 
 func PutTilesOnto(new_tiles: Array):
 	for tile in new_tiles:
