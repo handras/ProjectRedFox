@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsgm3b0sl7inb"]
+[gd_scene load_steps=8 format=3 uid="uid://dsgm3b0sl7inb"]
 
 [ext_resource type="Script" path="res://Manager.gd" id="1_ir35w"]
 [ext_resource type="Script" path="res://Components/TableCenter.gd" id="3_b6phy"]
 [ext_resource type="Script" path="res://camera_control.gd" id="3_c6w6v"]
+[ext_resource type="Script" path="res://Components/TileDragger.gd" id="4_46pay"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qj3k3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,7 +28,7 @@ script = ExtResource("1_ir35w")
 TileColors = Array[Color]([Color(0.705882, 0.0352941, 0.160784, 1), Color(0.0196078, 0.133333, 0.0470588, 1), Color(0.917647, 0.698039, 0.0470588, 1), Color(0.0392157, 0.698039, 0.803922, 1), Color(0.705882, 0.894118, 0.968627, 1)])
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.483863, 0.875144, 0, -0.875144, 0.483863, -1.90735e-06, 2.26776, 0.642321)
+transform = Transform3D(1, 0, 0, 0, 0.571974, 0.820272, 0, -0.820272, 0.571974, -1.90735e-06, 2.26776, 1.68246)
 cull_mask = 1047553
 script = ExtResource("3_c6w6v")
 
@@ -36,3 +37,6 @@ transform = Transform3D(0.707107, -0.0616284, 0.704416, 0, 0.996195, 0.0871557, 
 
 [node name="TableCenter" type="Node3D" parent="."]
 script = ExtResource("3_b6phy")
+
+[node name="TileDragger" type="Node3D" parent="."]
+script = ExtResource("4_46pay")

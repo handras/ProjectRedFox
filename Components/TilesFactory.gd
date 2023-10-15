@@ -13,7 +13,7 @@ func _ready():
 	for i in range(MaxTiles):
 		var _pos = get_node("Tile"+str(i+1)).position
 		_tile_hold_pos.append(_pos)
-		_tile_select_pos.append(_pos + Vector3(0, 0.12, 0))
+		_tile_select_pos.append(_pos + Vector3(0, 0.068, 0))
 
 func PutTilesOnto(new_tiles: Array):
 	for tile in new_tiles:
@@ -44,6 +44,8 @@ func tile_pointed_at_ended(tile):
 
 func tile_clicked_at(tile):
 	print(tile, 'TilesFactory::tile_clicked_at')
+	var dragger = $'../TileDragger'
+	dragger.PutTilesOnto(get_similar(tile))
 	pass
 
 func get_similar(tile):

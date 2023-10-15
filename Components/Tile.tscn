@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_laf3q"]
 size = Vector3(0.139, 0.03, 0.140599)
 
-[node name="Node3D" type="Node3D"]
+[node name="Tile" type="Node3D"]
 script = ExtResource("1_miqj8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
