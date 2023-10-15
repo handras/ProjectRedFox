@@ -9,11 +9,12 @@ size = Vector3(0.139, 0.03, 0.140599)
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_miqj8")
 
-[node name="tile" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_seulv")
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="tile"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="tile/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.016, 0)
 shape = SubResource("BoxShape3D_laf3q")
+
+[node name="tile" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = ExtResource("1_seulv")
+skeleton = NodePath("../..")

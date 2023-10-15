@@ -20,7 +20,7 @@ func PutTilesOnto(new_tiles: Array):
 		if len(tiles) < MaxTiles:
 			var _curr_idx = len(tiles)
 			tile.position = _tile_hold_pos[_curr_idx]
-			tile.rotation = rotation + Vector3(0, randfn(0, rad_to_deg(1.0)),0)
+			tile.rotation = rotation + Vector3(0, randfn(0, rad_to_deg(1.3)),0)
 
 			#tile.reparent(self) # if it already has a parent
 			add_child(tile)

@@ -10,8 +10,8 @@ var target_position: Vector3:
 		_move_towards_target()
 
 @onready var _manager = get_node('/root/Azuljo/Manager')
-@onready var tile = get_node('tile')
-@onready var collider = get_node('tile/StaticBody3D')
+@onready var tile = get_node('StaticBody3D/tile')
+@onready var collider = get_node('StaticBody3D')
 
 func _ready():
 	var _mat = _manager.matList[colorClass]
@@ -37,6 +37,6 @@ func _move_towards_target():
 	var time = 0
 	while Vector3(self.global_position - target).length() > 0.006:
 		self.global_position = lerp(start, target, ease(time, -1.721))
-		time += 1.0/Engine.get_frames_per_second()/0.852
+		time += 1/Engine.get_frames_per_second()/0.852
 		await get_tree().process_frame
 	self.global_position = target

@@ -15,13 +15,14 @@ radius = 0.298917
 [node name="TilesFactory" type="Node3D"]
 script = ExtResource("1_nkbva")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = ExtResource("2_6rjcd")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_jmyiu")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.007, 0)
 shape = SubResource("CylinderShape3D_nid13")
 
