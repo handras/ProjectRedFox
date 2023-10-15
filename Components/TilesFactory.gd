@@ -9,6 +9,8 @@ var _tile_hold_pos: Array
 var _tile_select_pos: Array
 var _tile_ind: Dictionary
 
+signal tile_was_clicked(tile, factory)
+
 func _ready():
 	for i in range(MaxTiles):
 		var _pos = get_node("Tile"+str(i+1)).position
@@ -44,9 +46,7 @@ func tile_pointed_at_ended(tile):
 
 func tile_clicked_at(tile):
 	print(tile, 'TilesFactory::tile_clicked_at')
-	var dragger = $'../TileDragger'
-	dragger.PutTilesOnto(get_similar(tile))
-	pass
+	tile_was_clicked.emit(tile, self)
 
 func get_similar(tile):
 	var similars = []

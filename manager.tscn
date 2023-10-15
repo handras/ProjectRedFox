@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsgm3b0sl7inb"]
+[gd_scene load_steps=9 format=3 uid="uid://dsgm3b0sl7inb"]
 
 [ext_resource type="Script" path="res://Manager.gd" id="1_ir35w"]
 [ext_resource type="Script" path="res://Components/TableCenter.gd" id="3_b6phy"]
@@ -17,6 +17,9 @@ background_mode = 2
 sky = SubResource("Sky_q3cd1")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_mbofo"]
+size = Vector3(0.1, 0.1, 0.1)
 
 [node name="Azuljo" type="Node3D"]
 
@@ -40,3 +43,6 @@ script = ExtResource("3_b6phy")
 
 [node name="TileDragger" type="Node3D" parent="."]
 script = ExtResource("4_46pay")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TileDragger"]
+mesh = SubResource("BoxMesh_mbofo")

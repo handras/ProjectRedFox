@@ -24,6 +24,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jmyiu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.007, 0)
+visible = false
 shape = SubResource("CylinderShape3D_nid13")
 
 [node name="Tile4" type="MeshInstance3D" parent="."]

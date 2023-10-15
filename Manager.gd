@@ -22,21 +22,9 @@ func _ready():
 func _process(_delta):
 	pass
 
-# maybe it should be in camera
-func _physics_process(_delta):
-	var space_state = get_world_3d().direct_space_state
-	var cam = $'../Camera3D'
-	var mousepos = get_viewport().get_mouse_position()
-
-	var origin = cam.project_ray_origin(mousepos)
-	var end = origin + cam.project_ray_normal(mousepos) * 500
-	var query = PhysicsRayQueryParameters3D.create(origin, end)
-	var result = space_state.intersect_ray(query)
-
-	if result:
-		# print(result['collider'])
-		# print(result['collider_id'])
-		pass
+func tile_was_clicked(tile, source):
+	var similars = source.get_similar(tile)
+	get_node("../TileDragger").PutTilesOnto(similars)
 
 
 func _put_down_factories(no_factories):
@@ -48,6 +36,7 @@ func _put_down_factories(no_factories):
 		_fac.position = Vector3(1*sin(alpha), 0, -1*cos(alpha))
 		var rot = [0, 90, 180, 270][randi()%4]+randfn(0, 2.82)
 		_fac.rotation = Vector3(0, deg_to_rad(rot), 0)
+		_fac.tile_was_clicked.connect(tile_was_clicked)
 	_fill_factories()
 
 func _fill_factories():
