@@ -3,6 +3,9 @@ extends Node3D
 var collector_tiles: Array;
 var tile_size: Vector3
 
+signal drag_started(new_place)
+signal drag_ended(new_place)
+
 func _ready():
 	var t = load('res://Components/Tile.tscn').instantiate()
 	add_child(t)
@@ -11,15 +14,21 @@ func _ready():
 	t.queue_free()
 
 func PutTilesOnto(new_tiles: Array):
-	global_position = new_tiles[0].global_position + Vector3(0, 1.5, 0)
+	drag_started.emit()
 	var _no_tiles = len(new_tiles)
 	for tile in new_tiles:
 		var _curr_idx = len(collector_tiles)
 		tile.reparent(self)
-		tile.position += _arrange_tile(_no_tiles, _curr_idx)
+		tile.target_position = to_global(_arrange_tile(_no_tiles, _curr_idx))
+		collector_tiles.append(tile)
+
+func EmptyTiles():
+	var _return = collector_tiles
+	collector_tiles = []
+	return _return
 
 func _arrange_tile(total, idx):
-	var _offset = tile_size.x*1.15
+	var _offset = tile_size.x*1.129
 	match total:
 		1:
 			return Vector3()
@@ -47,33 +56,21 @@ func _physics_process(_delta):
 	var result = space_state.intersect_ray(query)
 
 	if result:
-		# print(result['collider'])
-		# print(result['collider_id'])
+		var _coll  = result['collider']
+		if _coll.get_parent().has_method("can_accept_tiles"):
+			_coll.get_parent().can_accept_tiles()
+
 		pass
 	position = _intersect_with_plane(origin, end)
 
 func _intersect_with_plane(origin, end):
-	const plane_norm = Vector3(0,1,0)
-	const plane_orig = Vector3(0, 0.1,0)
-	var ray_dir = (end-origin).normalized()
+	const plane_norm = Vector3(0, 1, 0)
+	const plane_orig = Vector3(0, 0.2, 0)
+	var ray_dir = (end - origin).normalized()
+
 	var denom = plane_norm.dot(ray_dir)
 	if (abs(denom) > 1e-6) :
 		var p0l0 = plane_orig - origin;
 		var t = p0l0.dot(plane_norm) / denom
-		return origin + ray_dir*t;
+		return origin + ray_dir * t;
 	return Vector3()
-
-
-
-
-func tile_pointed_at(tile):
-	print('TileCollectorABC::tile_pointed_at')
-	pass
-
-func tile_pointed_at_ended(tile):
-	print('TileCollectorABC::tile_pointed_at_ended')
-	pass
-
-func tile_clicked_at(tile):
-	print('TileCollectorABC::tile_clicked_at')
-	pass

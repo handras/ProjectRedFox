@@ -10,6 +10,8 @@ var TileCount := 0
 var matList= [];
 var factories = [];
 
+@onready var tile_dragger = get_node("../TileDragger")
+
 func _ready():
 	for col in TileColors:
 		var _mat = StandardMaterial3D.new()
@@ -24,7 +26,9 @@ func _process(_delta):
 
 func tile_was_clicked(tile, source):
 	var similars = source.get_similar(tile)
-	get_node("../TileDragger").PutTilesOnto(similars)
+	source.RemoveTilesFrom(similars)
+	tile_dragger.PutTilesOnto(similars)
+	await tile_dragger.drag_ended
 
 
 func _put_down_factories(no_factories):
