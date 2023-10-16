@@ -2,7 +2,6 @@ extends Node3D
 
 var collector_tiles: Array;
 var tile_size: Vector3
-var _no_tiles:=0
 
 signal drag_started(new_place)
 signal drag_ended(new_place)
@@ -16,7 +15,7 @@ func _ready():
 
 func PutTilesOnto(new_tiles: Array):
 	drag_started.emit()
-	_no_tiles = len(new_tiles)
+	var _no_tiles = len(new_tiles)
 	for tile in new_tiles:
 		var _curr_idx = len(collector_tiles)
 		tile.reparent(self)
@@ -46,6 +45,8 @@ func _arrange_tile(total, idx):
 			else:
 				return Vector3(_offset, 0, -_offset)
 
+
+var _frames_still_drag_start = 0
 func _physics_process(_delta):
 	var space_state = get_world_3d().direct_space_state
 	var mousepos = get_viewport().get_mouse_position()
@@ -55,9 +56,21 @@ func _physics_process(_delta):
 	var end = origin + cam.project_ray_normal(mousepos)
 	position = _intersect_with_plane(origin, end)
 
-	if _no_tiles > 0:
-		_project_ray_down(space_state)
+	if collector_tiles:
+		_frames_still_drag_start += 1
+		if _frames_still_drag_start < 20:
+			pass
+		else:
+			_project_ray_down(space_state)
 
+			if Input.is_action_just_pressed("LeftClick"):
+				if _prev_pointed_node and _prev_pointed_node.can_accept_tiles():
+					_prev_pointed_node.PutTilesOnto(collector_tiles)
+					collector_tiles = []
+					_frames_still_drag_start = 0
+					drag_ended.emit()
+
+var _prev_pointed_node: Node3D = null
 func _project_ray_down(space_state):
 	var origin = global_position
 	var end = origin + Vector3(0, -1, 0)
@@ -65,10 +78,19 @@ func _project_ray_down(space_state):
 	var result = space_state.intersect_ray(query)
 
 	if result:
-		var _coll = result['collider']
+		var _body = result['collider'].get_parent()
 		# print(_coll)
-		if _coll.get_parent().has_method("can_accept_tiles"):
-			_coll.get_parent().can_accept_tiles()
+		if _body.has_method("can_accept_tiles"):
+			if not _prev_pointed_node == _body:
+				if _prev_pointed_node:
+					_prev_pointed_node.dragger_exit()
+				_body.dragger_enter()
+				_prev_pointed_node = _body
+
+	else:
+		if _prev_pointed_node:
+			_prev_pointed_node.dragger_exit()
+		_prev_pointed_node = null
 
 func _intersect_with_plane(origin, end):
 	const plane_norm = Vector3(0, 1, 0)

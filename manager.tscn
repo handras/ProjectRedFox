@@ -18,8 +18,11 @@ sky = SubResource("Sky_q3cd1")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_mbofo"]
-size = Vector3(0.1, 0.1, 0.1)
+[sub_resource type="SphereMesh" id="SphereMesh_ybix1"]
+radius = 0.04
+height = 0.11
+radial_segments = 16
+rings = 4
 
 [node name="Azuljo" type="Node3D"]
 
@@ -45,4 +48,4 @@ script = ExtResource("3_b6phy")
 script = ExtResource("4_46pay")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TileDragger"]
-mesh = SubResource("BoxMesh_mbofo")
+mesh = SubResource("SphereMesh_ybix1")
