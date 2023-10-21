@@ -15,8 +15,8 @@ var size: Vector3
 
 @onready var _manager = get_node('/root/Azuljo/Manager')
 @onready var _tile_dragger = get_node('/root/Azuljo/TileDragger')
-@onready var tile = get_node('StaticBody3D/tile')
-@onready var collider = get_node('StaticBody3D')
+@onready var tile = get_node('Tile')
+@onready var collider = get_node('collider')
 
 func on_drag_start():
 	if collider.mouse_entered.is_connected(pointed_at):

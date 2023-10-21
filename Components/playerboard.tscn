@@ -1,0 +1,136 @@
+[gd_scene load_steps=7 format=3 uid="uid://lbqkdo7bav2p"]
+
+[ext_resource type="PackedScene" uid="uid://hc63eftrvod7" path="res://models/playerboard.glb" id="1_s0j1r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_piksf"]
+resource_local_to_scene = true
+size = Vector3(0.14837, 0.02, 0.138059)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rkmnx"]
+resource_local_to_scene = true
+size = Vector3(0.317816, 0.02, 0.138059)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11rc5"]
+resource_local_to_scene = true
+size = Vector3(0.472739, 0.02, 0.138059)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1qa44"]
+resource_local_to_scene = true
+size = Vector3(0.642608, 0.02, 0.138059)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_coxmw"]
+resource_local_to_scene = true
+size = Vector3(0.799952, 0.02, 0.138059)
+
+[node name="playerboard" instance=ExtResource("1_s0j1r")]
+
+[node name="Playerboard" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0433177, -0.0556641, -0.0477551)
+
+[node name="Row1" type="Area3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0739403, -0.0251694, -0.257222)
+collision_layer = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D1" type="CollisionShape3D" parent="Row1" index="0"]
+shape = SubResource("BoxShape3D_piksf")
+
+[node name="Tile" type="Marker3D" parent="Row1/CollisionShape3D1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00432576, 0, -0.000480652)
+gizmo_extents = 0.07
+
+[node name="Row2" type="Area3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.155033, -0.0251694, -0.0914063)
+collision_layer = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D1" type="CollisionShape3D" parent="Row2" index="0"]
+shape = SubResource("BoxShape3D_rkmnx")
+
+[node name="Tile1" type="Marker3D" parent="Row2/CollisionShape3D1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0851304, 0, -0.00236136)
+gizmo_extents = 0.07
+
+[node name="Tile2" type="Marker3D" parent="Row2/CollisionShape3D1" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0843791, 0, 0.00143494)
+gizmo_extents = 0.07
+
+[node name="Row3" type="Area3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.227653, -0.0251694, 0.073199)
+collision_layer = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D1" type="CollisionShape3D" parent="Row3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00847238, 0, 0)
+shape = SubResource("BoxShape3D_11rc5")
+
+[node name="Tile1" type="Marker3D" parent="Row3" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.156406, 0, 0.00156207)
+gizmo_extents = 0.07
+
+[node name="Tile2" type="Marker3D" parent="Row3" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00787212, 0, -0.00118069)
+gizmo_extents = 0.07
+
+[node name="Tile3" type="Marker3D" parent="Row3" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170041, 0, 0.000127114)
+gizmo_extents = 0.07
+
+[node name="Row4" type="Area3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.314797, -0.0251694, 0.236594)
+collision_layer = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D1" type="CollisionShape3D" parent="Row4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00121033, 0, 0)
+shape = SubResource("BoxShape3D_1qa44")
+
+[node name="Tile1" type="Marker3D" parent="Row4" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.249914, 0, 0.000254259)
+gizmo_extents = 0.07
+
+[node name="Tile2" type="Marker3D" parent="Row4" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0843285, 0, -0.00248851)
+gizmo_extents = 0.07
+
+[node name="Tile3" type="Marker3D" parent="Row4" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.085033, 0, -0.000526771)
+gizmo_extents = 0.07
+
+[node name="Tile4" type="Marker3D" parent="Row4" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.246548, 0, -0.00379629)
+gizmo_extents = 0.07
+
+[node name="Row5" type="Area3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.384996, -0.0251694, 0.40483)
+collision_layer = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D1" type="CollisionShape3D" parent="Row5" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0121034, 0, -0.00484133)
+shape = SubResource("BoxShape3D_coxmw")
+
+[node name="Tile1" type="Marker3D" parent="Row5" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.315959, 0, 0.000254273)
+gizmo_extents = 0.07
+
+[node name="Tile2" type="Marker3D" parent="Row5" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.154296, 0, 0.000781)
+gizmo_extents = 0.07
+
+[node name="Tile3" type="Marker3D" parent="Row5" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0131033, 0, -0.00118071)
+gizmo_extents = 0.07
+
+[node name="Tile4" type="Marker3D" parent="Row5" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.177888, 0, -0.00248846)
+gizmo_extents = 0.07
+
+[node name="Tile5" type="Marker3D" parent="Row5" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.336158, 0, -0.00170752)
+gizmo_extents = 0.07
