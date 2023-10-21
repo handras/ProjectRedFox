@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://lbqkdo7bav2p"]
 
-[ext_resource type="PackedScene" uid="uid://hc63eftrvod7" path="res://models/playerboard.glb" id="1_s0j1r"]
+[ext_resource type="PackedScene" uid="uid://hc63eftrvod7" path="res://models/playerboard.glb" id="1_dm8s0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_piksf"]
 resource_local_to_scene = true
@@ -22,7 +22,7 @@ size = Vector3(0.642608, 0.02, 0.138059)
 resource_local_to_scene = true
 size = Vector3(0.799952, 0.02, 0.138059)
 
-[node name="playerboard" instance=ExtResource("1_s0j1r")]
+[node name="playerboard" instance=ExtResource("1_dm8s0")]
 
 [node name="Playerboard" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0433177, -0.0556641, -0.0477551)

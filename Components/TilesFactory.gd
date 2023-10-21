@@ -10,7 +10,6 @@ var _tile_select_pos: Array
 var _tile_to_idx: Dictionary
 var _idx_to_tile:= [null, null, null, null]
 
-var _mat_standard
 var _mat_can_accept
 var _mat_can_not_accept
 
@@ -21,20 +20,21 @@ signal tile_was_clicked(tile, factory)
 @onready var _mesh : MeshInstance3D = get_node('StaticBody3D/factory')
 
 func _ready():
-	for i in range(MaxTiles):
-		var _pos = get_node("Tile"+str(i+1)).position
-		_tile_hold_pos.append(_pos)
-		_tile_select_pos.append(_pos + Vector3(0, 0.068, 0))
 
-	_mat_standard = StandardMaterial3D.new()
-	_mat_standard.albedo_color = Color.GOLDENROD
-	_mesh.set_surface_override_material(0, _mat_standard)
+	_get_tile_positions()
 
 	_mat_can_accept = StandardMaterial3D.new()
 	_mat_can_accept.albedo_color = Color.LIGHT_GREEN
 
 	_mat_can_not_accept = StandardMaterial3D.new()
 	_mat_can_not_accept.albedo_color = Color.RED
+
+func _get_tile_positions():
+	var _placeholder = get_node("positions"+str(randi_range(1,3)))
+	for i in range(MaxTiles):
+		var _pos = _placeholder.get_node("tile"+str(i+1)).position
+		_tile_hold_pos.append(_pos)
+		_tile_select_pos.append(_pos + Vector3(0, 0.068, 0))
 
 func dragger_enter():
 	if len(_tile_to_idx) < MaxTiles:
@@ -44,7 +44,7 @@ func dragger_enter():
 	pass
 
 func dragger_exit():
-	_mesh.set_surface_override_material(0, _mat_standard)
+	_mesh.set_surface_override_material(0, null)
 	pass
 
 func can_accept_tiles():
