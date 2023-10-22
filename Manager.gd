@@ -14,9 +14,6 @@ var factories = [];
 @onready var tile_dragger = get_node("../TileDragger")
 
 func _ready():
-
-	print(OS.get_cmdline_user_args())
-
 	for col in TileColors:
 		var _mat = StandardMaterial3D.new()
 		_mat.albedo_color = col
@@ -27,6 +24,13 @@ func _ready():
 
 	var no_playerboards = 4
 	_put_down_playerboards(no_playerboards)
+
+	await Game.network_ready
+	Debug.log_message("peer ID in manager: " + str(multiplayer.get_unique_id()))
+
+	if multiplayer.get_unique_id() == 1:
+		Debug.log_message("Server is filling factories")
+		fill_factories()
 
 func _process(_delta):
 	pass
@@ -49,7 +53,6 @@ func _put_down_factories(no_factories):
 		var rot = [0, 90, 180, 270][randi()%4]+randfn(0, 2.82)
 		_fac.rotation = Vector3(0, deg_to_rad(rot), 0)
 		_fac.tile_was_clicked.connect(tile_was_clicked)
-	_fill_factories()
 
 func _put_down_playerboards(no_playerboards):
 	const RADIUS = 2.6
@@ -61,12 +64,13 @@ func _put_down_playerboards(no_playerboards):
 		_board.position = Vector3(RADIUS*sin(alpha), 0, RADIUS*cos(alpha))
 		_board.rotation = Vector3(0, alpha, 0)
 
-
-func _fill_factories():
-	for fac in self.factories:
-		_fill_factory(fac)
-
-func _fill_factory(factory):
-	# print('filling factory')
-	var _tiles = tile_collector.get_tiles(factory.MaxTiles)
-	factory.PutTilesOnto.call_deferred(_tiles)
+func fill_factories():
+	for fac in factories:
+		var colors = tile_collector.draw_random_colors(fac.MaxTiles)
+		var tiles = []
+		for col in colors:
+			var t = tile_.instantiate()
+			t.colorClass = col
+			tiles.append(t)
+		Debug.log_message('calling RPC PutTilesOnto')
+		fac.rpc.call_deferred("PutTilesOnto", tiles)

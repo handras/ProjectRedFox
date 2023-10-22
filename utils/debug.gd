@@ -1,15 +1,16 @@
 extends Control
 
-@onready var title = $VBoxContainer/Label
-@onready var msgs = $VBoxContainer/Label2
+@onready var title = %title
+@onready var msgs = %msgs
 
 var is_ready = false
 
 func _ready():
 	is_ready = true
+	msgs.text = ''
 
-func set_title(str):
-	title.text = str
+func set_title(msg):
+	title.text = msg
 
-func log_mesage(str:String):
-	msgs.text += (str+'\n')
+func log_message(msg:String):
+	msgs.text += (msg+'\n')

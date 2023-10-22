@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://dsgm3b0sl7inb"]
+[gd_scene load_steps=9 format=3 uid="uid://dsgm3b0sl7inb"]
 
-[ext_resource type="Script" path="res://Game.gd" id="1_epwau"]
 [ext_resource type="Script" path="res://Manager.gd" id="1_ir35w"]
 [ext_resource type="Script" path="res://Components/TableCenter.gd" id="3_b6phy"]
 [ext_resource type="Script" path="res://camera_control.gd" id="3_c6w6v"]
@@ -26,7 +25,6 @@ radial_segments = 16
 rings = 4
 
 [node name="Azuljo" type="Node3D"]
-script = ExtResource("1_epwau")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bac38")
