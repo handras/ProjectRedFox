@@ -14,6 +14,9 @@ var factories = [];
 @onready var tile_dragger = get_node("../TileDragger")
 
 func _ready():
+
+	print(OS.get_cmdline_user_args())
+
 	for col in TileColors:
 		var _mat = StandardMaterial3D.new()
 		_mat.albedo_color = col

@@ -15,6 +15,20 @@ run/main_scene="res://manager.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Debug="*res://debug.tscn"
+
+[debug]
+
+multirun/number_of_windows=2
+multirun/add_custom_args=true
+multirun/window_args=["-- --server", "-- --client=1"]
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/multirun/plugin.cfg")
+
 [filesystem]
 
 import/fbx/enabled=false

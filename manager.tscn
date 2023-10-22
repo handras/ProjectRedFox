@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsgm3b0sl7inb"]
+[gd_scene load_steps=10 format=3 uid="uid://dsgm3b0sl7inb"]
 
+[ext_resource type="Script" path="res://Game.gd" id="1_epwau"]
 [ext_resource type="Script" path="res://Manager.gd" id="1_ir35w"]
 [ext_resource type="Script" path="res://Components/TableCenter.gd" id="3_b6phy"]
 [ext_resource type="Script" path="res://camera_control.gd" id="3_c6w6v"]
@@ -25,6 +26,7 @@ radial_segments = 16
 rings = 4
 
 [node name="Azuljo" type="Node3D"]
+script = ExtResource("1_epwau")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bac38")
@@ -36,10 +38,14 @@ TileColors = Array[Color]([Color(0.705882, 0.0352941, 0.160784, 1), Color(0.0196
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.571974, 0.820272, 0, -0.820272, 0.571974, -1.90735e-06, 2.26776, 1.68246)
 cull_mask = 1047553
+fov = 70.0
+near = 0.02
+far = 80.0
 script = ExtResource("3_c6w6v")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.707107, -0.0616284, 0.704416, 0, 0.996195, 0.0871557, -0.707107, -0.0616284, 0.704416, 0, 6.74607, 3.38038)
+transform = Transform3D(1, 0, 0, 0, 0.451392, 0.892326, 0, -0.892326, 0.451392, 0, 6.74607, 3.38038)
+light_energy = 0.341
 
 [node name="TableCenter" type="Node3D" parent="."]
 script = ExtResource("3_b6phy")
