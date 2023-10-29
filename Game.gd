@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 
 const port = 8952
 
@@ -6,7 +6,11 @@ var peer = ENetMultiplayerPeer.new()
 
 var remote_peers = []
 var me := 'whoami'
+
+# Emitted once the multiplayer api is set up
 signal network_ready()
+
+signal peer_joined(id:int)
 
 func _parse_args(args):
 	var arguments = {}
@@ -39,6 +43,8 @@ func _ready():
 func on_peer_connected_to_server(peer_id):
 	Debug.log_message(str(peer_id) + ' connected to ' + me)
 	remote_peers.append(peer_id)
+	peer_joined.emit(peer_id)
+
 
 func on_peer_connected_to_client(peer_id):
 	Debug.log_message(str(peer_id) + ' connected to ' + me)

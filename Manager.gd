@@ -10,6 +10,7 @@ var playerboard = preload("res://Components/Playerboard.tscn")
 var TileCount := 0
 var matList= [];
 var factories = [];
+var game_state
 
 @onready var tile_dragger = get_node("../TileDragger")
 
@@ -19,11 +20,17 @@ func _ready():
 		_mat.albedo_color = col
 		_mat.roughness = 0.351
 		matList.append(_mat)
+
+
+	game_state = preload("res://Scripts/GameState.gd").new()
+	Debug.log_message(game_state)
 	var no_factories = 5
 	_put_down_factories(no_factories)
 
 	var no_playerboards = 4
 	_put_down_playerboards(no_playerboards)
+
+	Game.peer_joined.connect(on_peer_joined)
 
 	await Game.network_ready
 	Debug.log_message("peer ID in manager: " + str(multiplayer.get_unique_id()))
@@ -67,10 +74,30 @@ func _put_down_playerboards(no_playerboards):
 func fill_factories():
 	for fac in factories:
 		var colors = tile_collector.draw_random_colors(fac.MaxTiles)
+		game_state.factories[len(game_state.factories)] = colors
+	await get_tree().create_timer(2).timeout
+	Debug.log_message('Sending game state: ' +str(game_state))
+	rpc("put_tiles_on_all_clients", game_state.to_dict())
+
+@rpc("call_local")
+func put_tiles_on_all_clients(state):
+	Debug.log_message("got state: " + str(state))
+	var locstate = GameState.from_dict(state)
+	# var locstate = state.decode_var(0, true)
+	Debug.log_message("decoded state: " + str(locstate))
+	var idx=0
+	for fac in factories:
+		instantiate_tiles(fac, locstate.factories[idx])
+		idx+=1
+	pass
+
+func instantiate_tiles(fac, colors):
 		var tiles = []
 		for col in colors:
 			var t = tile_.instantiate()
 			t.colorClass = col
 			tiles.append(t)
-		Debug.log_message('calling RPC PutTilesOnto')
-		fac.rpc.call_deferred("PutTilesOnto", tiles)
+		fac.PutTilesOnto(tiles)
+
+func on_peer_joined(id):
+	pass

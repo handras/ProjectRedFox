@@ -52,7 +52,7 @@ func can_accept_tiles():
 
 @rpc("call_local", "reliable")
 func PutTilesOnto(new_tiles: Array):
-	Debug.log_message("PutTilesOnto is called")
+	Debug.log_message("PutTilesOnto is called with: "+str(new_tiles))
 	for tile in new_tiles:
 		if len(_tile_to_idx) < MaxTiles:
 			for i in range(_idx_to_tile.size()):
