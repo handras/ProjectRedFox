@@ -50,9 +50,8 @@ func dragger_exit():
 func can_accept_tiles():
 	return len(_tile_to_idx) < MaxTiles
 
-@rpc("call_local", "reliable")
 func PutTilesOnto(new_tiles: Array):
-	Debug.log_message("PutTilesOnto is called with: "+str(new_tiles))
+	Debug.log_message("PutTilesOnto is called with: " + str(new_tiles))
 	for tile in new_tiles:
 		if len(_tile_to_idx) < MaxTiles:
 			for i in range(_idx_to_tile.size()):
@@ -77,7 +76,6 @@ func RemoveTilesFrom(tile_to_remove: Array):
 
 
 func tile_pointed_at(tile):
-#	print(tile, 'TilesFactory::tile_pointed_at')
 	var similars = get_similar(tile)
 	for t in similars:
 		t.target_position = to_global(_tile_select_pos[_tile_to_idx[t]])

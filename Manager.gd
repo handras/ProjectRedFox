@@ -76,19 +76,15 @@ func fill_factories():
 		var colors = tile_collector.draw_random_colors(fac.MaxTiles)
 		game_state.factories[len(game_state.factories)] = colors
 	await get_tree().create_timer(2).timeout
-	Debug.log_message('Sending game state: ' +str(game_state))
 	rpc("put_tiles_on_all_clients", game_state.to_dict())
 
 @rpc("call_local")
 func put_tiles_on_all_clients(state):
-	Debug.log_message("got state: " + str(state))
 	var locstate = GameState.from_dict(state)
-	# var locstate = state.decode_var(0, true)
-	Debug.log_message("decoded state: " + str(locstate))
-	var idx=0
+	var idx = 0
 	for fac in factories:
 		instantiate_tiles(fac, locstate.factories[idx])
-		idx+=1
+		idx += 1
 	pass
 
 func instantiate_tiles(fac, colors):

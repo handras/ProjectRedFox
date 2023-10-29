@@ -4,7 +4,12 @@ const port = 8952
 
 var peer = ENetMultiplayerPeer.new()
 
+var num_players: int
+
+# the references of romte peers, set when they join
 var remote_peers = []
+
+# name of this instance used for debugging
 var me := 'whoami'
 
 # Emitted once the multiplayer api is set up
@@ -36,6 +41,10 @@ func _ready():
 		me = "Client " + str(args["client"])
 		multiplayer.peer_connected.connect(on_peer_connected_to_client)
 
+	else:
+		# handle case when this is set from menu
+		pass
+
 	multiplayer.multiplayer_peer = peer
 	Debug.set_title(me)
 	network_ready.emit()
@@ -47,4 +56,5 @@ func on_peer_connected_to_server(peer_id):
 
 
 func on_peer_connected_to_client(peer_id):
+	remote_peers.append(peer_id)
 	Debug.log_message(str(peer_id) + ' connected to ' + me)
