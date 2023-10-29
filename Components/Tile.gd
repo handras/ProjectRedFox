@@ -4,12 +4,14 @@ var colorClass: TileColorsDef.colors:
 	set(value):
 		colorClass = value
 
-var _move_towards_running:= false
+var moving_tween:Tween
 var target_position: Vector3:
 	set(value):
 		target_position = value
-		_move_towards_running = true
-		_move_towards_target()
+		if moving_tween and moving_tween.is_running():
+			moving_tween.kill()
+		moving_tween = create_tween()
+		moving_tween.tween_property(self, "global_position", target_position, 0.252)
 
 var size: Vector3
 
@@ -59,14 +61,3 @@ func input_to_click(camera: Node, event:InputEvent, pos, normal, shape_idx):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			clicked_at()
-
-func _move_towards_target():
-	# todo: better do this in local space, since the dragger can move during
-	var start = self.global_position
-	var target = self.target_position
-	var time = 0
-	while Vector3(self.global_position - target).length() > 0.006:
-		self.global_position = lerp(start, target, ease(time, -1.721))
-		time += 1/Engine.get_frames_per_second()/0.452
-		await get_tree().process_frame
-	self.global_position = target
