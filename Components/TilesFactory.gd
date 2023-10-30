@@ -1,8 +1,6 @@
 extends Node3D
 
-@export var MaxTiles = 4:
-	get:
-		return MaxTiles
+const MaxTiles = 4
 
 var _tile_hold_pos: Array
 var _tile_select_pos: Array
@@ -14,6 +12,8 @@ var _mat_can_accept
 var _mat_can_not_accept
 
 signal tile_was_clicked(tile, factory)
+signal tile_pointed(fac, tiles)
+signal tile_pointed_ended(fac, tiles)
 
 @onready var _tile_dragger = get_node('/root/Azuljo/TileDragger')
 @onready var _collider = get_node('StaticBody3D')
@@ -69,32 +69,40 @@ func PutTilesOnto(new_tiles: Array):
 				break  # break out of for
 	# TODO: handle if more than MaxTiles is put on?
 
-func RemoveTilesFrom(tile_to_remove: Array):
-	for t in tile_to_remove:
-		_idx_to_tile[_tile_to_idx[t]] = null
+func remove_tiles(tile_idxs: Array):
+	var removed = []
+	for idx in tile_idxs:
+		var t = _idx_to_tile[idx]
+		removed.append(t)
 		_tile_to_idx.erase(t)
+		_idx_to_tile[idx] = null
+	return removed
 
 
 func tile_pointed_at(tile):
-	var similars = get_similar(tile)
-	for t in similars:
-		t.target_position = to_global(_tile_select_pos[_tile_to_idx[t]])
-	pass
+	var similars = get_similar_idxs(tile)
+	tile_pointed.emit(self, similars)
 
 func tile_pointed_at_ended(tile):
-#	print(tile, 'TilesFactory::tile_pointed_at_ended')
-	var similars = get_similar(tile)
-	for t in similars:
-		t.target_position = to_global(_tile_hold_pos[_tile_to_idx[t]])
-	pass
+	var similars = get_similar_idxs(tile)
+	tile_pointed_ended.emit(self, similars)
+
+func select_tiles(tile_idxs):
+	for idx in tile_idxs:
+		_idx_to_tile[idx].target_position = to_global(_tile_select_pos[idx])
+
+func unselect_tiles(tile_idxs):
+	for idx in tile_idxs:
+		_idx_to_tile[idx].target_position = to_global(_tile_hold_pos[idx])
 
 func tile_clicked_at(tile):
 #	print(tile, 'TilesFactory::tile_clicked_at')
 	tile_was_clicked.emit(tile, self)
 
-func get_similar(tile):
+func get_similar_idxs(tile):
 	var similars = []
-	for t in _tile_to_idx.keys():
+	for i in range(_idx_to_tile.size()):
+		var t = _idx_to_tile[i]
 		if t.colorClass == tile.colorClass:
-			similars.append(t)
+			similars.append(i)
 	return similars

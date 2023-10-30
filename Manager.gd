@@ -42,10 +42,35 @@ func _ready():
 func _process(_delta):
 	pass
 
+func tiles_selected(fac, tile_idxs):
+	var fac_idx = factories.find(fac)
+	on_tiles_selected.rpc(fac_idx, tile_idxs)
+
+func tiles_unselected(fac, tile_idxs):
+	var fac_idx = factories.find(fac)
+	on_tiles_unselected.rpc(fac_idx, tile_idxs)
+
+@rpc("call_local", "any_peer", "reliable")
+func on_tiles_selected(fac_idx, tile_idxs):
+	var fac = factories[fac_idx]
+	fac.select_tiles(tile_idxs)
+
+@rpc("call_local", "any_peer", "reliable")
+func on_tiles_unselected(fac_idx, tile_idxs):
+	var fac = factories[fac_idx]
+	fac.unselect_tiles(tile_idxs)
+
 func tile_was_clicked(tile, source):
-	var similars = source.get_similar(tile)
-	source.RemoveTilesFrom(similars)
-	tile_dragger.PutTilesOnto(similars)
+	var fac_id = factories.find(source)
+	var similars = source.get_similar_idxs(tile)
+	move_tiles_to_dragger.rpc(fac_id, similars)
+
+
+@rpc("call_local", "any_peer", "reliable")
+func move_tiles_to_dragger(from_fac, tile_idxs):
+	var fac = factories[from_fac]
+	var tiles = fac.remove_tiles(tile_idxs)
+	tile_dragger.PutTilesOnto(tiles)
 	await tile_dragger.drag_ended
 
 
@@ -60,6 +85,8 @@ func _put_down_factories(no_factories):
 		var rot = [0, 90, 180, 270][randi()%4]+randfn(0, 2.82)
 		_fac.rotation = Vector3(0, deg_to_rad(rot), 0)
 		_fac.tile_was_clicked.connect(tile_was_clicked)
+		_fac.tile_pointed.connect(tiles_selected)
+		_fac.tile_pointed_ended.connect(tiles_unselected)
 
 func _put_down_playerboards(no_playerboards):
 	const RADIUS = 2.6
