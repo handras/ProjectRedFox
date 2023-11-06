@@ -22,11 +22,6 @@ func PutTilesOnto(new_tiles: Array):
 		tile.target_position = to_global(_arrange_tile(_no_tiles, _curr_idx))
 		collector_tiles.append(tile)
 
-func EmptyTiles():
-	var _return = collector_tiles
-	collector_tiles = []
-	return _return
-
 func _arrange_tile(total, idx):
 	var _offset = tile_size.x*1.129
 	match total:

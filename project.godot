@@ -8,6 +8,10 @@
 
 config_version=5
 
+[addons]
+
+ruake/toggle_ruake_action="toggle_console"
+
 [application]
 
 config/name="Azuljo"
@@ -19,6 +23,7 @@ config/icon="res://icon.svg"
 
 Debug="*res://debug.tscn"
 Game="*res://Game.gd"
+RuakeLayer="*res://addons/ruake/core/RuakeLayer.tscn"
 
 [debug]
 
@@ -28,7 +33,7 @@ multirun/window_args=["-- --client=1", "-- --server", "-- --client=2"]
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/multirun/plugin.cfg")
+enabled=PackedStringArray("res://addons/multirun/plugin.cfg", "res://addons/ruake/plugin.cfg")
 
 [filesystem]
 
@@ -60,3 +65,14 @@ toggle_console={
 [rendering]
 
 anti_aliasing/quality/msaa_3d=1
+
+[shader_globals]
+
+accept_color={
+"type": "vec3",
+"value": Vector3(0.002, 0.9, 0.1)
+}
+deny_color={
+"type": "vec3",
+"value": Vector3(0.95, 0.11, 0.05)
+}

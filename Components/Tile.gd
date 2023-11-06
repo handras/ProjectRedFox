@@ -11,6 +11,7 @@ var target_position: Vector3:
 		if moving_tween and moving_tween.is_running():
 			moving_tween.kill()
 		moving_tween = create_tween()
+		moving_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 		moving_tween.tween_property(self, "global_position", target_position, 0.252)
 
 var size: Vector3

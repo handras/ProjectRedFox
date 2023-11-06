@@ -8,8 +8,7 @@ var _tile_select_pos: Array
 var _tile_to_idx: Dictionary
 var _idx_to_tile:= [null, null, null, null]
 
-var _mat_can_accept
-var _mat_can_not_accept
+var _mat_overlay
 
 signal tile_was_clicked(tile, factory)
 signal tile_pointed(fac, tiles)
@@ -22,12 +21,8 @@ signal tile_pointed_ended(fac, tiles)
 func _ready():
 
 	_get_tile_positions()
-
-	_mat_can_accept = StandardMaterial3D.new()
-	_mat_can_accept.albedo_color = Color.LIGHT_GREEN
-
-	_mat_can_not_accept = StandardMaterial3D.new()
-	_mat_can_not_accept.albedo_color = Color.RED
+	_mat_overlay = ShaderMaterial.new()
+	_mat_overlay.shader = load("res://shaders/factory.gdshader")
 
 func _get_tile_positions():
 	var _placeholder = get_node("positions"+str(randi_range(1,3)))
@@ -38,13 +33,15 @@ func _get_tile_positions():
 
 func dragger_enter():
 	if len(_tile_to_idx) < MaxTiles:
-		_mesh.set_surface_override_material(0, _mat_can_accept)
+		_mat_overlay.set_shader_parameter("can_accept", true)
+		_mesh.material_overlay = _mat_overlay
 	else:
-		_mesh.set_surface_override_material(0, _mat_can_not_accept)
+		_mat_overlay.set_shader_parameter("can_accept", false)
+		_mesh.material_overlay = _mat_overlay
 	pass
 
 func dragger_exit():
-	_mesh.set_surface_override_material(0, null)
+	_mesh.material_overlay = null
 	pass
 
 func can_accept_tiles():

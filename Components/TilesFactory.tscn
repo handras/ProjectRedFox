@@ -9,6 +9,7 @@ cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_8g730")
 roughness = 0.5
+grow_amount = 0.001
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_rjjdo"]
 _surfaces = [{
@@ -53,6 +54,7 @@ script = ExtResource("1_nkbva")
 collision_layer = 3
 
 [node name="factory" type="MeshInstance3D" parent="StaticBody3D"]
+cast_shadow = 0
 mesh = SubResource("ArrayMesh_oqqi6")
 skeleton = NodePath("")
 
