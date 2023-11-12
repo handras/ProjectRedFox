@@ -5,6 +5,7 @@ global uniform vec3 deny_color : source_color;
 uniform bool can_accept;
 
 void fragment() {
+	vec2 pos = FRAGCOORD.xy;
 	if (can_accept){
 		ALBEDO = accept_color;
 	}

@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsgm3b0sl7inb"]
+[gd_scene load_steps=10 format=3 uid="uid://dsgm3b0sl7inb"]
 
 [ext_resource type="Script" path="res://Manager.gd" id="1_ir35w"]
 [ext_resource type="Script" path="res://Components/TableCenter.gd" id="3_b6phy"]
 [ext_resource type="Script" path="res://camera_control.gd" id="3_c6w6v"]
 [ext_resource type="Script" path="res://Components/TileDragger.gd" id="4_46pay"]
+[ext_resource type="Script" path="res://Scripts/InputCatcher.gd" id="5_7yy6y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qj3k3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -53,3 +54,6 @@ script = ExtResource("4_46pay")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TileDragger"]
 mesh = SubResource("SphereMesh_ybix1")
+
+[node name="InputCatcher" type="Node" parent="."]
+script = ExtResource("5_7yy6y")

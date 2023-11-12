@@ -40,11 +40,15 @@ func _arrange_tile(total, idx):
 			else:
 				return Vector3(_offset, 0, -_offset)
 
+var mousepos
+func _unhandled_input(event):
+	if event is InputEventMouseMotion:
+		mousepos = event.position
 
 var _frames_since_drag_start = 0
 func _physics_process(_delta):
 	var space_state = get_world_3d().direct_space_state
-	var mousepos = get_viewport().get_mouse_position()
+	mousepos = mousepos.clamp(Vector2(0,0), get_viewport().get_visible_rect().size)
 	var cam = $'../Camera3D'
 
 	var origin = cam.project_ray_origin(mousepos)

@@ -27,7 +27,12 @@ func _parse_args(args):
 			arguments[argument.lstrip("--")] = ""
 	return arguments
 
+func _setup_cursor():
+	# Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	pass
+
 func _ready():
+	_setup_cursor()
 	# some bug with Networking, has to give it time to be ready
 	await get_tree().create_timer(0.03).timeout
 	var args = _parse_args(OS.get_cmdline_user_args())

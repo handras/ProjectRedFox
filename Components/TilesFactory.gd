@@ -22,7 +22,7 @@ func _ready():
 
 	_get_tile_positions()
 	_mat_overlay = ShaderMaterial.new()
-	_mat_overlay.shader = load("res://shaders/factory.gdshader")
+	_mat_overlay.shader = load("res://Shaders/factory.gdshader")
 
 func _get_tile_positions():
 	var _placeholder = get_node("positions"+str(randi_range(1,3)))
