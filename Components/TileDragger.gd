@@ -40,7 +40,7 @@ func _arrange_tile(total, idx):
 			else:
 				return Vector3(_offset, 0, -_offset)
 
-var mousepos
+var mousepos := Vector2(0,0)
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		mousepos = event.position
