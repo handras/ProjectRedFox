@@ -4,7 +4,10 @@ var collector_tiles: Array;
 var tile_size: Vector3
 
 signal drag_started(new_place)
-signal drag_ended(new_place)
+signal drag_ended()
+signal drag_ended_at(target)
+
+@onready var _manager = get_node('../Manager')
 
 func _ready():
 	var t = load('res://Components/Tile.tscn').instantiate()
@@ -64,10 +67,14 @@ func _physics_process(_delta):
 			if Input.is_action_just_pressed("LeftClick"):
 				if _prev_pointed_node and _prev_pointed_node.can_accept_tiles():
 					_prev_pointed_node.dragger_exit()
-					_prev_pointed_node.PutTilesOnto(collector_tiles)
-					collector_tiles = []
+					drag_ended_at.emit(_prev_pointed_node)
 					_frames_since_drag_start = 0
-					drag_ended.emit()
+
+func RemoveTiles():
+	drag_ended.emit(_prev_pointed_node)
+	var til = collector_tiles
+	collector_tiles = []
+	return til
 
 var _prev_pointed_node: Node3D = null
 func _project_ray_down(space_state):

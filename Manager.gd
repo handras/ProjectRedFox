@@ -40,7 +40,7 @@ func _ready():
 		fill_factories()
 
 	# setup tile draggger
-	tile_dragger.drag_ended.connect(_on_drag_ended)
+	tile_dragger.drag_ended_at.connect(drag_ended_at)
 
 func _process(_delta):
 	pass
@@ -66,16 +66,23 @@ func on_tiles_unselected(fac_idx, tile_idxs):
 func tile_was_clicked(tile, source):
 	var fac_id = factories.find(source)
 	var similars = source.get_similar_idxs(tile)
-	move_tiles_to_dragger.rpc(fac_id, similars)
+	on_move_tiles_to_dragger.rpc(fac_id, similars)
 
 @rpc("call_local", "any_peer", "reliable")
-func move_tiles_to_dragger(from_fac, tile_idxs):
+func on_move_tiles_to_dragger(from_fac, tile_idxs):
 	var fac = factories[from_fac]
 	var tiles = fac.remove_tiles(tile_idxs)
 	tile_dragger.PutTilesOnto(tiles)
 
+func drag_ended_at(target):
+	var fac_id = factories.find(target)
+	_on_drag_ended_at.rpc(fac_id)
 
-func _on_drag_ended():
+@rpc("call_local", "any_peer", "reliable")
+func _on_drag_ended_at(fac_id):
+	var fac = factories[fac_id]
+	var tiles = tile_dragger.RemoveTiles()
+	fac.PutTilesOnto(tiles)
 	pass
 
 func _put_down_factories(no_factories):

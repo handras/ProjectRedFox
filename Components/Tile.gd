@@ -27,7 +27,7 @@ func on_drag_start():
 		collider.mouse_exited.disconnect(not_pointing)
 		collider.input_event.disconnect(input_to_click)
 
-func on_drag_end():
+func on_drag_end(_target):
 	if not collider.mouse_entered.is_connected(pointed_at):
 		collider.mouse_entered.connect(pointed_at)
 		collider.mouse_exited.connect(not_pointing)
