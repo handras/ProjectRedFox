@@ -16,3 +16,16 @@ mono_crash.*.json
 
 # Blender
 *.blend1
+
+# these maybe checked in later
+models/65-rigged_hand_blend.zip
+models/grabber.blend
+models/hand.blend
+models/hand.glb
+models/hand.glb.import
+models/textures/HAND_C.jpg
+models/textures/HAND_C.jpg.import
+models/textures/HAND_N .jpg
+models/textures/HAND_N .jpg.import
+models/textures/HAND_S.jpg
+models/textures/HAND_S.jpg.import
