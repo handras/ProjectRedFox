@@ -1,20 +1,22 @@
 extends Node3D
 
-var collector_tiles: Array;
+var collector_tiles: Array
 var tile_size: Vector3
 
 signal drag_started(new_place)
-signal drag_ended()
+signal drag_ended
 signal drag_ended_at(target)
 
-@onready var _manager = get_node('../Manager')
+@onready var _manager = get_node("../Manager")
+
 
 func _ready():
-	var t = load('res://Components/Tile.tscn').instantiate()
+	var t = load("res://Components/Tile.tscn").instantiate()
 	add_child(t)
 	tile_size = t.size
 	remove_child(t)
 	t.queue_free()
+
 
 func PutTilesOnto(new_tiles: Array):
 	drag_started.emit()
@@ -25,8 +27,9 @@ func PutTilesOnto(new_tiles: Array):
 		tile.target_position = to_global(_arrange_tile(_no_tiles, _curr_idx))
 		collector_tiles.append(tile)
 
+
 func _arrange_tile(total, idx):
-	var _offset = tile_size.x*1.129
+	var _offset = tile_size.x * 1.129
 	match total:
 		1:
 			return Vector3()
@@ -43,16 +46,22 @@ func _arrange_tile(total, idx):
 			else:
 				return Vector3(_offset, 0, -_offset)
 
-var mousepos := Vector2(0,0)
+
+var mousepos := Vector2(0, 0)
+
+
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		mousepos = event.position
 
+
 var _frames_since_drag_start = 0
+
+
 func _physics_process(_delta):
 	var space_state = get_world_3d().direct_space_state
-	mousepos = mousepos.clamp(Vector2(0,0), get_viewport().get_visible_rect().size)
-	var cam = $'../Camera3D'
+	mousepos = mousepos.clamp(Vector2(0, 0), get_viewport().get_visible_rect().size)
+	var cam = $"../Camera3D"
 
 	var origin = cam.project_ray_origin(mousepos)
 	var end = origin + cam.project_ray_normal(mousepos)
@@ -70,13 +79,17 @@ func _physics_process(_delta):
 					drag_ended_at.emit(_prev_pointed_node)
 					_frames_since_drag_start = 0
 
+
 func RemoveTiles():
 	drag_ended.emit(_prev_pointed_node)
 	var til = collector_tiles
 	collector_tiles = []
 	return til
 
+
 var _prev_pointed_node: Node3D = null
+
+
 func _project_ray_down(space_state):
 	var origin = global_position
 	var end = origin + Vector3(0, -1, 0)
@@ -84,7 +97,7 @@ func _project_ray_down(space_state):
 	var result = space_state.intersect_ray(query)
 
 	if result:
-		var _body = result['collider'].get_parent()
+		var _body = result["collider"].get_parent()
 		# print(_coll)
 		if _body.has_method("can_accept_tiles"):
 			if not _prev_pointed_node == _body:
@@ -98,14 +111,15 @@ func _project_ray_down(space_state):
 			_prev_pointed_node.dragger_exit()
 		_prev_pointed_node = null
 
+
 func _intersect_with_plane(origin, end):
 	const plane_norm = Vector3(0, 1, 0)
 	const plane_orig = Vector3(0, 0.2, 0)
 	var ray_dir = (end - origin).normalized()
 
 	var denom = plane_norm.dot(ray_dir)
-	if (abs(denom) > 1e-6) :
-		var p0l0 = plane_orig - origin;
+	if abs(denom) > 1e-6:
+		var p0l0 = plane_orig - origin
 		var t = p0l0.dot(plane_norm) / denom
-		return origin + ray_dir * t;
+		return origin + ray_dir * t
 	return Vector3()
