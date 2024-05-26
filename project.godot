@@ -16,7 +16,7 @@ ruake/toggle_ruake_action="toggle_console"
 
 config/name="Azuljo"
 run/main_scene="res://manager.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
