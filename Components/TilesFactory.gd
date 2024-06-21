@@ -53,7 +53,7 @@ func can_accept_tiles():
 
 
 func PutTilesOnto(new_tiles: Array):
-	Debug.log_message("PutTilesOnto is called with: " + str(new_tiles))
+	Log.debug("PutTilesOnto is called with: " + str(new_tiles))
 	for tile in new_tiles:
 		if len(_tile_to_idx) < MaxTiles:
 			for i in range(_idx_to_tile.size()):

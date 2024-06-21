@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdop52nwit3dr"]
+[gd_scene load_steps=2 format=3 uid="uid://bi1xr0lb8dwp0"]
 
 [ext_resource type="Script" path="res://utils/debug.gd" id="1_pqeys"]
 
-[node name="Debug" type="Control"]
+[node name="Log" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

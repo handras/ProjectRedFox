@@ -23,7 +23,7 @@ func _ready():
 		matList.append(_mat)
 
 	game_state = preload("res://Scripts/GameState.gd").new()
-	Debug.log_message(game_state)
+	Log.debug(game_state)
 	var no_factories = 5
 	_put_down_factories(no_factories)
 
@@ -33,10 +33,10 @@ func _ready():
 	Game.peer_joined.connect(on_peer_joined)
 
 	await Game.network_ready
-	Debug.log_message("peer ID in manager: " + str(multiplayer.get_unique_id()))
+	Log.debug("peer ID in manager: " + str(multiplayer.get_unique_id()))
 
 	if multiplayer.get_unique_id() == 1:
-		Debug.log_message("Server is filling factories")
+		Log.debug("Server is filling factories")
 		fill_factories()
 
 	# setup tile draggger

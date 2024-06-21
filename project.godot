@@ -21,9 +21,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Debug="*res://debug.tscn"
 Game="*res://Game.gd"
 RuakeLayer="*res://addons/ruake/core/RuakeLayer.tscn"
+Log="*res://utils/Log.gd"
 
 [debug]
 

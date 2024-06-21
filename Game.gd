@@ -54,16 +54,16 @@ func _ready():
 		pass
 
 	multiplayer.multiplayer_peer = peer
-	Debug.set_title(me)
+	Log.debug("I am the: " + me)
 	network_ready.emit()
 
 
 func on_peer_connected_to_server(peer_id):
-	Debug.log_message(str(peer_id) + " connected to " + me)
+	Log.debug(str(peer_id) + " connected to " + me)
 	remote_peers.append(peer_id)
 	peer_joined.emit(peer_id)
 
 
 func on_peer_connected_to_client(peer_id):
 	remote_peers.append(peer_id)
-	Debug.log_message(str(peer_id) + " connected to " + me)
+	Log.debug(str(peer_id) + " connected to " + me)

@@ -34,7 +34,7 @@ func draw_random_colors(count):
 				available_tiles[new] -= 1
 				choosen.append(new)
 				break
-	Debug.log_message("Remaining tiles: "+ str(available_tiles))
+	Log.debug("Remaining tiles: "+ str(available_tiles))
 	return choosen
 
 func get_tiles(colors: Array):
