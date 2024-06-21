@@ -16,7 +16,7 @@ signal tile_pointed_ended(fac, tiles)
 
 @onready var _tile_dragger = get_node("/root/Azuljo/TileDragger")
 @onready var _collider = get_node("StaticBody3D")
-@onready var _mesh: MeshInstance3D = get_node("StaticBody3D/factory")
+@onready var _mesh: MeshInstance3D = get_node("factory")
 
 
 func _ready():
