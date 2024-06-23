@@ -10,10 +10,10 @@ var num_players: int
 var remote_peers = []
 
 # name of this instance used for debugging
-var me := "whoami"
+var me := "whoami?"
 
 # Emitted once the multiplayer api is set up
-signal network_ready
+signal network_ready(name: String)
 
 signal peer_joined(id: int)
 
@@ -54,8 +54,7 @@ func _ready():
 		pass
 
 	multiplayer.multiplayer_peer = peer
-	Log.debug("I am the: " + me)
-	network_ready.emit()
+	network_ready.emit(me)
 
 
 func on_peer_connected_to_server(peer_id):

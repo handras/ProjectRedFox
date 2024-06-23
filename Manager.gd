@@ -32,7 +32,8 @@ func _ready():
 
 	Game.peer_joined.connect(on_peer_joined)
 
-	await Game.network_ready
+	var player_name = await Game.network_ready
+	Log.debug("I am " + player_name)
 	Log.debug("peer ID in manager: " + str(multiplayer.get_unique_id()))
 
 	if multiplayer.get_unique_id() == 1:
@@ -41,6 +42,7 @@ func _ready():
 
 	# setup tile draggger
 	tile_dragger.drag_ended_at.connect(drag_ended_at)
+
 
 
 func _process(_delta):
