@@ -1,8 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckbawr2rq0vqd"]
+[gd_scene load_steps=5 format=3 uid="uid://ckbawr2rq0vqd"]
 
+[ext_resource type="Shader" path="res://Shaders/player_ui.gdshader" id="1_dk31w"]
 [ext_resource type="Theme" uid="uid://b43kppmfvefnq" path="res://Components/UIs/PlayerUI.tres" id="1_vkaot"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_amsxa"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ribg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rvae3"]
+shader = ExtResource("1_dk31w")
+shader_parameter/amount = 2.689
+shader_parameter/exponent = 6.282
+shader_parameter/vignette_color = Color(0.115772, 0.387613, 0.476087, 0.172549)
 
 [node name="PlayUi" type="Control"]
 layout_mode = 3
@@ -21,12 +28,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_amsxa")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7ribg")
 
-[node name="ColorRect" type="ColorRect" parent="PanelContainer"]
+[node name="ColorRect2" type="ColorRect" parent="PanelContainer"]
 visible = false
 layout_mode = 2
-color = Color(0, 0.756863, 0.760784, 0)
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer"]
+material = SubResource("ShaderMaterial_rvae3")
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
 [node name="PlayerName" type="Label" parent="PanelContainer"]
 layout_mode = 2
